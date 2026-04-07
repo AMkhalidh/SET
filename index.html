@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SET – For Beginners</title>
+  <title>SET — Beginner Edition</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Nunito:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Outfit:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,28 +16,32 @@
     <div class="splash-letter">E</div>
     <div class="splash-letter">T</div>
   </div>
-  <div class="splash-sub">For Beginners</div>
-  <button class="splash-btn" id="enterGame">&#9654; Play</button>
+  <div class="splash-sub">Beginner Edition &mdash; 27 Cards</div>
+  <button class="splash-btn" id="enterGame">&#9654;&nbsp;&nbsp;Play</button>
 </div>
 
-<!-- floats up when you find a set -->
 <div class="score-popup" id="scorePopup">&#127881; SET!</div>
 
 <div class="gameover-overlay" id="gameoverOverlay">
   <div class="gameover-modal">
-    <div class="gameover-title">GAME OVER</div>
-    <p style="font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#bbb;margin-top:4px">Here's how you did</p>
+    <div class="gameover-title">FINISHED</div>
+    <div class="gameover-rating" id="goRating">&#128077; Good</div>
     <div class="gameover-stats">
       <div class="gameover-stat">
-        <div class="gameover-stat-val" id="goScore">0</div>
-        <div class="gameover-stat-label">Sets Found</div>
+        <span class="gameover-stat-val" id="goScore">0</span>
+        <span class="gameover-stat-label">Sets</span>
       </div>
       <div class="gameover-stat">
-        <div class="gameover-stat-val" id="goTime">00:00</div>
-        <div class="gameover-stat-label">Time</div>
+        <span class="gameover-stat-val" id="goTime">00:00</span>
+        <span class="gameover-stat-label">Time</span>
+      </div>
+      <div class="gameover-stat">
+        <span class="gameover-stat-val" id="goStreak">0</span>
+        <span class="gameover-stat-label">Streak</span>
       </div>
     </div>
-    <button class="btn primary" id="goPlayAgain" style="width:100%;padding:12px;font-size:15px;border-radius:999px">Play Again</button>
+    <div class="gameover-best" id="goBest"></div>
+    <button class="btn primary" id="goPlayAgain" style="width:100%;padding:13px;font-size:14px;border-radius:12px;letter-spacing:1px">PLAY AGAIN</button>
   </div>
 </div>
 
@@ -61,10 +65,18 @@
           <div class="hstat-label">Cards Left</div>
           <div class="hstat-value" id="cardsLeft">27</div>
         </div>
+        <div class="hstat hstat-streak">
+          <div class="hstat-label">&#128293; Streak</div>
+          <div class="hstat-value" id="streak">0</div>
+        </div>
+        <div class="hstat">
+          <div class="hstat-label">SETs on Board</div>
+          <div class="hstat-value" id="setsLeft">&ndash;</div>
+        </div>
       </div>
       <div class="header-btns">
         <button class="btn primary" id="btnNew">New</button>
-        <button class="btn" id="btnHint">Hint</button>
+        <button class="btn" id="btnHint">Hint <span class="kbd">H</span></button>
         <button class="btn" id="btnTutorial">&#128218;</button>
         <button class="btn danger" id="btnEnd">&#10005;</button>
       </div>
@@ -72,7 +84,7 @@
   </div>
 
   <div class="message-bar">
-    <div id="msg">Welcome! Hit <strong>New</strong> to start.</div>
+    <div id="msg">Hit <strong>New</strong> to start a game.</div>
     <div class="chips">
       <span class="chip">Pick 3 cards</span>
       <span class="chip">All same or all different</span>
@@ -92,11 +104,11 @@
     <div class="modal-body" id="slideContent"></div>
     <div class="modal-dots" id="dots"></div>
     <div class="modal-nav">
-      <button class="btn btn-back" id="prev">&#9664; Previous</button>
+      <button class="btn btn-back" id="prev">&#9664; Back</button>
       <button class="btn btn-next" id="next">Next &#9654;</button>
     </div>
-    <div style="text-align:center;padding:0 24px 18px">
-      <button id="btnSkipTutorial" style="background:none;border:none;color:#bbb;font-size:12px;font-weight:700;cursor:pointer;text-decoration:underline;font-family:inherit">Skip the tutorial</button>
+    <div style="text-align:center;padding:0 26px 20px">
+      <button id="btnSkipTutorial" style="background:none;border:none;color:rgba(240,240,245,0.25);font-size:12px;font-weight:600;cursor:pointer;text-decoration:underline;font-family:inherit;letter-spacing:0.3px">Skip tutorial</button>
     </div>
   </div>
 </div>

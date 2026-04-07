@@ -1,10 +1,10 @@
-// SET game logic
-// 27-card beginner deck (3 features: colour, shape, number — no shading)
-// rules based on official SET card game
+// SET game — beginner 27-card version
+// 3 features: colour, shape, number. no shading.
 
 (() => {
 
-// shape svg paths
+// ---- shape paths ----
+
 function path(s) {
   if (s === "oval")
     return "M30 30 C30 12 55 8 85 8 L115 8 C145 8 170 12 170 30 C170 48 145 52 115 52 L85 52 C55 52 30 48 30 30 Z";
@@ -14,15 +14,15 @@ function path(s) {
 }
 
 var COLORS = [
-  { key: "red",   stroke: "#e53935", fill: "rgba(229,57,53,0.85)"  },
-  { key: "green", stroke: "#388e3c", fill: "rgba(56,142,60,0.85)"  },
-  { key: "teal",  stroke: "#0d9488", fill: "rgba(13,148,136,0.85)" }
+  { key: "red",   stroke: "#ff4d6d", fill: "rgba(255,77,109,0.9)"   },
+  { key: "green", stroke: "#3ddc84", fill: "rgba(61,220,132,0.9)"  },
+  { key: "teal",  stroke: "#00e5cc", fill: "rgba(0,229,204,0.9)"   }
 ];
 var SHAPES  = ["oval", "diamond", "squiggle"];
 var NUMBERS = [1, 2, 3];
 
 
-/* tutorial helpers */
+// ---- tutorial helpers ----
 
 function shapeEl(shape, colorStroke, colorFill, fill, sizeW, sizeH) {
   fill  = fill  || "solid";
@@ -64,13 +64,13 @@ function setRow(cards, tick, caption) {
 }
 
 var S = {
-  teal:  { s: "#0d9488", f: "rgba(13,148,136,0.85)" },
-  green: { s: "#16a34a", f: "rgba(22,163,74,0.85)"  },
-  red:   { s: "#dc2626", f: "rgba(220,38,38,0.85)"  }
+  teal:  { s: "#00e5cc", f: "rgba(0,229,204,0.9)"   },
+  green: { s: "#3ddc84", f: "rgba(61,220,132,0.9)"  },
+  red:   { s: "#ff4d6d", f: "rgba(255,77,109,0.9)"  }
 };
 
 
-/* tutorial slides */
+// ---- tutorial slides ----
 
 var slides = [
   {
@@ -118,18 +118,18 @@ var slides = [
   {
     step: "TUTORIAL (4/4)",
     html: '<div class="modal-title">How to play</div>' +
-      '<div class="modal-desc">12 cards are dealt face-up. Find SETs and the board refills. If there\'s no SET on the board, 3 more cards are added.</div>' +
+      '<div class="modal-desc">9 cards are dealt face-up. Find SETs and the board refills. If there\'s no SET on the board, 3 more cards are added.</div>' +
       '<div style="display:flex;flex-direction:column;gap:10px;margin-bottom:8px">' +
-      '<div style="display:flex;align-items:center;gap:12px;background:#f0fdf9;border-radius:12px;padding:12px 14px;border:1.5px solid #99f6e4"><div style="font-size:24px">&#127183;</div><div><strong>Click 3 cards</strong> to select them. Click again to deselect.</div></div>' +
-      '<div style="display:flex;align-items:center;gap:12px;background:#f0fdf9;border-radius:12px;padding:12px 14px;border:1.5px solid #99f6e4"><div style="font-size:24px">&#9989;</div><div>If all 3 features are all same or all different &mdash; <strong>that\'s a SET!</strong> The 3 cards are removed and replaced.</div></div>' +
-      '<div style="display:flex;align-items:center;gap:12px;background:#f0fdf9;border-radius:12px;padding:12px 14px;border:1.5px solid #99f6e4"><div style="font-size:24px">&#128161;</div><div>Stuck? Hit <strong>Hint</strong>. If no SET exists, 3 more cards are dealt automatically.</div></div>' +
-      '<div style="display:flex;align-items:center;gap:12px;background:#fffde7;border-radius:12px;padding:12px 14px;border:1.5px solid #ffe082"><div style="font-size:24px">&#127937;</div><div>The game ends when the deck is empty and no more SETs remain on the board.</div></div>' +
+      '<div style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.05);border-radius:12px;padding:12px 14px;border:1px solid rgba(255,255,255,0.1);color:#f0f0f5"><div style="font-size:24px;flex-shrink:0">&#127183;</div><div><strong style="color:#fff">Click 3 cards</strong> to select them. Click again to deselect.</div></div>' +
+      '<div style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.05);border-radius:12px;padding:12px 14px;border:1px solid rgba(255,255,255,0.1);color:#f0f0f5"><div style="font-size:24px;flex-shrink:0">&#9989;</div><div>If all 3 features are all same or all different &mdash; <strong style="color:#fff">that\'s a SET!</strong> Cards are removed and replaced.</div></div>' +
+      '<div style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.05);border-radius:12px;padding:12px 14px;border:1px solid rgba(255,255,255,0.1);color:#f0f0f5"><div style="font-size:24px;flex-shrink:0">&#128161;</div><div>Stuck? Hit <strong style="color:#fff">Hint</strong> (or press <strong style="color:#fff">H</strong>). No SET on board = 3 more cards dealt.</div></div>' +
+      '<div style="display:flex;align-items:center;gap:12px;background:rgba(255,208,96,0.07);border-radius:12px;padding:12px 14px;border:1px solid rgba(255,208,96,0.2);color:#f0f0f5"><div style="font-size:24px;flex-shrink:0">&#128293;</div><div>Build a <strong style="color:#ffd060">streak</strong> by finding SETs without any wrong guesses!</div></div>' +
       '</div>'
   }
 ];
 
 
-/* tutorial logic */
+// ---- tutorial logic ----
 
 var overlay      = document.getElementById("overlay");
 var slideContent = document.getElementById("slideContent");
@@ -164,7 +164,7 @@ nextBtn.onclick = function() {
 overlay.onclick = function(e) { if (e.target === overlay) closeTutorial(); };
 
 
-/* splash */
+// ---- splash ----
 
 var splash = document.getElementById("splash");
 document.getElementById("enterGame").onclick = function() {
@@ -173,24 +173,27 @@ document.getElementById("enterGame").onclick = function() {
 };
 
 
-/* game state */
+// ---- game state ----
 
-var deck = [], board = [], selected = new Set(), score = 0, started = false;
+var deck = [], board = [], selected = new Set();
+var score = 0, streak = 0, started = false, locked = false;
 var startMs = 0, timer = null;
 
-var grid    = document.getElementById("grid");
-var msg     = document.getElementById("msg");
-var timeEl  = document.getElementById("time");
-var scoreEl = document.getElementById("score");
-var leftEl  = document.getElementById("cardsLeft");
+var grid     = document.getElementById("grid");
+var msg      = document.getElementById("msg");
+var timeEl   = document.getElementById("time");
+var scoreEl  = document.getElementById("score");
+var leftEl   = document.getElementById("cardsLeft");
+var streakEl = document.getElementById("streak");
+var setsLeftEl = document.getElementById("setsLeft");
 
 
-/* deck helpers */
+// ---- deck helpers ----
 
 function shuffle(a) {
   for (var i = a.length - 1; i > 0; i--) {
     var j = Math.floor(Math.random() * (i + 1));
-    var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+    var t = a[i]; a[i] = a[j]; a[j] = t;
   }
   return a;
 }
@@ -211,8 +214,8 @@ function allSame(v) { return v[0] === v[1] && v[1] === v[2]; }
 function allDiff(v) { return v[0] !== v[1] && v[0] !== v[2] && v[1] !== v[2]; }
 
 function isSet(a, b, c) {
-  return (allSame([a.color,b.color,c.color])   || allDiff([a.color,b.color,c.color])) &&
-         (allSame([a.shape,b.shape,c.shape])    || allDiff([a.shape,b.shape,c.shape])) &&
+  return (allSame([a.color,b.color,c.color])   || allDiff([a.color,b.color,c.color]))  &&
+         (allSame([a.shape,b.shape,c.shape])    || allDiff([a.shape,b.shape,c.shape]))  &&
          (allSame([a.number,b.number,c.number]) || allDiff([a.number,b.number,c.number]));
 }
 
@@ -225,8 +228,15 @@ function findSet() {
   return null;
 }
 
-// deal 3 more cards if no SET exists — per official rules the board grows
-// rather than swapping cards out
+function countSets() {
+  var n = 0;
+  for (var i = 0; i < board.length - 2; i++)
+    for (var j = i + 1; j < board.length - 1; j++)
+      for (var k = j + 1; k < board.length; k++)
+        if (isSet(board[i], board[j], board[k])) n++;
+  return n;
+}
+
 function dealMoreIfNeeded() {
   while (!findSet() && deck.length > 0) {
     board = board.concat(deck.splice(0, 3));
@@ -235,13 +245,37 @@ function dealMoreIfNeeded() {
 }
 
 
-/* rendering */
+// ---- best time (localStorage) ----
 
-function updateGridColumns() {
-  // 3 cols for the beginner layout, grows if extra cards are dealt
-  var cols = board.length > 9 ? 3 : 3;
-  grid.style.gridTemplateColumns = "repeat(" + cols + ", 1fr)";
+function getBest() {
+  try { return parseInt(localStorage.getItem("set_best") || "0", 10); } catch(e) { return 0; }
 }
+function saveBest(secs) {
+  try {
+    var prev = getBest();
+    if (!prev || secs < prev) localStorage.setItem("set_best", secs);
+  } catch(e) {}
+}
+
+
+// ---- streak display ----
+
+function updateStreak() {
+  if (!streakEl) return;
+  streakEl.textContent = streak;
+  streakEl.parentElement.style.opacity = streak > 0 ? "1" : "0.35";
+}
+
+function updateSetsLeft() {
+  if (!setsLeftEl) return;
+  var n = countSets();
+  setsLeftEl.textContent = n;
+  // subtle colour hint when it's getting low
+  setsLeftEl.style.color = n === 0 ? "var(--red)" : n <= 2 ? "var(--gold)" : "";
+}
+
+
+// ---- rendering ----
 
 function cardSVG(c) {
   var col = COLORS.find(function(x) { return x.key === c.color; });
@@ -251,23 +285,33 @@ function cardSVG(c) {
   return '<div style="display:flex;flex-direction:column;align-items:center;gap:5px">' + out + '</div>';
 }
 
-function render() {
-  updateGridColumns();
+function render(newIds) {
+  // newIds = card ids that just arrived (get deal-in animation)
+  newIds = newIds || [];
   grid.innerHTML = "";
-  board.forEach(function(card) {
+  board.forEach(function(card, idx) {
     var d = document.createElement("div");
     d.className = "card";
     if (selected.has(card.id)) d.classList.add("selected");
+    if (newIds.indexOf(card.id) !== -1) d.classList.add("card-deal");
+    // stagger new cards
+    if (newIds.indexOf(card.id) !== -1) {
+      var pos = newIds.indexOf(card.id);
+      d.style.animationDelay = (pos * 0.06) + "s";
+    }
     d.innerHTML = cardSVG(card);
     d.onclick = (function(id) { return function() { pick(id); }; })(card.id);
     grid.appendChild(d);
   });
   scoreEl.textContent = score;
   leftEl.textContent  = deck.length + board.length;
+  updateStreak();
+  updateSetsLeft();
 }
 
-function showScorePopup() {
+function showScorePopup(text) {
   var pop = document.getElementById("scorePopup");
+  pop.textContent = text || "\uD83C\uDF89 SET!";
   pop.classList.remove("show");
   void pop.offsetWidth;
   pop.classList.add("show");
@@ -278,91 +322,151 @@ function flashCards(ids, type) {
   board.forEach(function(card, i) {
     if (ids.indexOf(card.id) !== -1) {
       cards[i].classList.add(type);
-      setTimeout(function() { cards[i].classList.remove(type); }, 600);
+      setTimeout(function() { cards[i].classList.remove(type); }, 650);
     }
   });
 }
 
 
-/* game flow */
+// ---- game flow ----
 
 function start() {
   clearInterval(timer);
   deck  = makeDeck();
-  // beginner 27-card version starts with 9 cards (3x3)
   board = deck.splice(0, 9);
   selected.clear();
-  score = 0;
+  score   = 0;
+  streak  = 0;
+  locked  = false;
   started = true;
   startMs = performance.now();
+
   timer = setInterval(function() {
     var t = Math.floor((performance.now() - startMs) / 1000);
     timeEl.textContent = (Math.floor(t/60)+"").padStart(2,"0") + ":" + (t%60+"").padStart(2,"0");
   }, 500);
-  msg.innerHTML = 'Find a <strong>SET</strong> — select 3 cards!';
-  render();
-  // if the opening 12 somehow have no SET, deal more
+
+  msg.innerHTML = 'Find a <strong>SET</strong> &mdash; select 3 cards!';
+
+  // deal animation for all opening cards
+  var allIds = board.map(function(c) { return c.id; });
+  render(allIds);
   dealMoreIfNeeded();
 }
 
 function pick(id) {
-  if (!started) return;
-  if (selected.has(id)) selected.delete(id);
-  else if (selected.size < 3) selected.add(id);
+  if (!started || locked) return;
+
+  if (selected.has(id)) {
+    selected.delete(id);
+  } else if (selected.size < 3) {
+    selected.add(id);
+  }
   render();
 
-  if (selected.size === 3) {
-    var arr = Array.from(selected);
-    var a = board.find(function(x) { return x.id === arr[0]; });
-    var b = board.find(function(x) { return x.id === arr[1]; });
-    var c = board.find(function(x) { return x.id === arr[2]; });
-    var selIds = arr.slice();
+  if (selected.size !== 3) return;
 
-    if (isSet(a, b, c)) {
-      score++;
-      showScorePopup();
-      msg.innerHTML = '&#127881; <strong>SET!</strong> Nice one, keep going!';
-      flashCards(selIds, "correct-flash");
+  var arr  = Array.from(selected);
+  var a    = board.find(function(x) { return x.id === arr[0]; });
+  var b    = board.find(function(x) { return x.id === arr[1]; });
+  var c    = board.find(function(x) { return x.id === arr[2]; });
+  var selIds = arr.slice();
 
-      setTimeout(function() {
-        // remove the 3 matched cards from the board
-        board = board.filter(function(x) { return selIds.indexOf(x.id) === -1; });
+  if (isSet(a, b, c)) {
+    score++;
+    streak++;
 
-        // only refill up to 12 if there are cards left in the deck
-        // if board already has 12+ (because extra cards were dealt), don't add more
-        if (board.length < 9 && deck.length > 0) {
-          board = board.concat(deck.splice(0, 3));
-        }
+    var popText = streak >= 5 ? "\uD83D\uDD25 x" + streak + " STREAK!" :
+                  streak >= 3 ? "\u26A1 SET! x" + streak :
+                  "\uD83C\uDF89 SET!";
+    showScorePopup(popText);
 
-        selected.clear();
-        render();
+    msg.innerHTML = streak >= 3
+      ? '\uD83D\uDD25 <strong>' + streak + '-SET streak!</strong> Keep it up!'
+      : '\uD83C\uDF89 <strong>SET!</strong> Nice one!';
 
-        // check if the game is over: deck empty and no SETs left on board
-        if (deck.length === 0 && !findSet()) {
-          endGame();
-          return;
-        }
+    flashCards(selIds, "correct-flash");
 
-        // if there's no SET on the new board, deal 3 more (official rule)
-        if (!findSet() && deck.length > 0) {
-          msg.innerHTML = 'No SET on the board &mdash; dealing 3 more cards.';
-          dealMoreIfNeeded();
-        }
-      }, 500);
+    // lock input briefly while cards animate out
+    locked = true;
+    setTimeout(function() {
+      board = board.filter(function(x) { return selIds.indexOf(x.id) === -1; });
 
-    } else {
-      msg.innerHTML = '&#10060; Not a SET &mdash; check each feature again.';
-      flashCards(selIds, "wrong-flash");
-      setTimeout(function() { selected.clear(); render(); }, 600);
-    }
+      var newCards = [];
+      if (board.length < 9 && deck.length > 0) {
+        var fresh = deck.splice(0, 3);
+        board = board.concat(fresh);
+        newCards = fresh.map(function(c) { return c.id; });
+      }
+
+      selected.clear();
+      locked = false;
+      render(newCards);
+
+      if (deck.length === 0 && !findSet()) { endGame(); return; }
+
+      if (!findSet() && deck.length > 0) {
+        msg.innerHTML = 'No SET on the board &mdash; dealing 3 more cards.';
+        var extra = deck.splice(0, 3);
+        board = board.concat(extra);
+        render(extra.map(function(c) { return c.id; }));
+        if (deck.length === 0 && !findSet()) { endGame(); return; }
+      }
+    }, 500);
+
+  } else {
+    // wrong guess — shake, break streak, brief lockout
+    streak = 0;
+    flashCards(selIds, "wrong-flash");
+    msg.innerHTML = '\u274C Not a SET &mdash; check each feature again.';
+    locked = true;
+    setTimeout(function() {
+      selected.clear();
+      locked = false;
+      render();
+    }, 800);
   }
+}
+
+function getRating(secs, s) {
+  // crude rating based on speed and score
+  if (s >= 9 && secs < 120) return { label: "Genius", emoji: "\uD83E\uDD29" };
+  if (s >= 7 && secs < 180) return { label: "Sharp",  emoji: "\u26A1"       };
+  if (s >= 5)                return { label: "Good",   emoji: "\uD83D\uDC4D" };
+  return                            { label: "Keep practising", emoji: "\uD83D\uDCDA" };
 }
 
 function endGame() {
   started = false;
   clearInterval(timer);
+
+  var t    = Math.floor((performance.now() - startMs) / 1000);
+  var best = getBest();
+  saveBest(t);
+  var newBest = (!best || t < best);
+
+  var rating = getRating(t, score);
+
   document.getElementById("goScore").textContent = score;
   document.getElementById("goTime").textContent  = timeEl.textContent;
+  document.getElementById("goStreak").textContent = streak;
+  document.getElementById("goRating").textContent = rating.emoji + " " + rating.label;
+
+  var bestEl = document.getElementById("goBest");
+  if (bestEl) {
+    var prevBest = newBest ? best : null;
+    if (newBest && prevBest) {
+      bestEl.textContent = "New best! Was " + Math.floor(prevBest/60).toString().padStart(2,"0") + ":" + (prevBest%60).toString().padStart(2,"0");
+      bestEl.style.color = "var(--teal)";
+    } else if (best) {
+      bestEl.textContent = "Best: " + Math.floor(best/60).toString().padStart(2,"0") + ":" + (best%60).toString().padStart(2,"0");
+      bestEl.style.color = "";
+    } else {
+      bestEl.textContent = "First game!";
+      bestEl.style.color = "var(--teal)";
+    }
+  }
+
   document.getElementById("gameoverOverlay").classList.add("open");
 }
 
@@ -377,12 +481,11 @@ document.getElementById("goPlayAgain").onclick = function() {
 };
 
 
-/* hint button */
+// ---- hint button ----
 
 var hintTimeouts = [];
 document.getElementById("btnHint").onclick = function() {
   if (!started) return;
-
   hintTimeouts.forEach(clearTimeout);
   hintTimeouts = [];
   grid.querySelectorAll(".card").forEach(function(c) { c.classList.remove("hint-highlight"); });
@@ -397,16 +500,28 @@ document.getElementById("btnHint").onclick = function() {
         hintTimeouts.push(t);
       }
     });
-    msg.innerHTML = '&#128161; <strong>Hint:</strong> three cards are highlighted &mdash; that\'s a valid SET!';
+    msg.innerHTML = '\uD83D\uDCA1 <strong>Hint:</strong> three cards are highlighted &mdash; that\'s a valid SET!';
   } else if (deck.length > 0) {
-    // no SET on board — deal 3 more per official rules
     msg.innerHTML = 'No SET on the board &mdash; dealing 3 more cards.';
-    dealMoreIfNeeded();
+    var extra = deck.splice(0, 3);
+    board = board.concat(extra);
+    render(extra.map(function(c) { return c.id; }));
+    if (deck.length === 0 && !findSet()) setTimeout(endGame, 1000);
   } else {
-    // deck exhausted, no SETs left — game over
-    msg.innerHTML = 'No more SETs anywhere. Game over!';
-    setTimeout(endGame, 1200);
+    msg.innerHTML = 'No more SETs. Game over!';
+    setTimeout(endGame, 1000);
   }
 };
+
+
+// ---- keyboard shortcuts ----
+
+document.addEventListener("keydown", function(e) {
+  if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
+  if (e.key === "h" || e.key === "H") document.getElementById("btnHint").click();
+  if (e.key === "n" || e.key === "N") {
+    if (!started) start();
+  }
+});
 
 })();
